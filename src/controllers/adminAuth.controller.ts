@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { User } from '@interfaces/users.interface';
-import AuthService from '@/services/studentsAuth.service';
+import AuthService from '@/services/adminAut.service';
 
-class AuthController {
+class AdminAuthController {
   public authService = new AuthService();
 
   public signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -44,4 +44,4 @@ class AuthController {
   };
 }
 
-export default AuthController;
+export default AdminAuthController;

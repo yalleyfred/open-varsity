@@ -1,0 +1,41 @@
+{
+  "development": {
+    "username": "open_varsity_user",
+    "password": "kuPdUHr5cgy9HAq9fXVYCMqKsQTGmRmL",
+    "database": "open_varsity",
+    "host": "dpg-cearg814reb52us4d6fg-a.ohio-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": false,
+        "rejectUnauthorized": false
+      }
+    }
+  },
+  "test":  {
+    "username": "open_varsity_user",
+    "password": "kuPdUHr5cgy9HAq9fXVYCMqKsQTGmRmL",
+    "database": "open_varsity",
+    "host": "dpg-cearg814reb52us4d6fg-a.ohio-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": false,
+        "rejectUnauthorized": false
+      }
+    }
+  },
+  "production":  {
+    "username": "open_varsity_user",
+    "password": "kuPdUHr5cgy9HAq9fXVYCMqKsQTGmRmL",
+    "database": "open_varsity",
+    "host": "dpg-cearg814reb52us4d6fg-a.ohio-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": false,
+        "rejectUnauthorized": false
+      }
+    }
+  }
+}
