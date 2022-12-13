@@ -5,15 +5,21 @@ import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { User } from '@interfaces/users.interface';
-import AdminModel, { AdminMap} from '@models/admins.model';
-import {LocalDB} from '../Database'
+import Admins from '@models/admins.model';
+// import {LocalDB} from '../Database'
 import { isEmpty } from '@utils/util';
 
 class AdminAuthService {
-  public users = AdminModel;
+  public users = Admins;
+
+  public async findAllUser(): Promise<User[]> {
+    // AdminMap(LocalDB);
+    const users: User[] = await this.users.findAll();
+    return users;
+  }
 
   public async signup(userData: CreateUserDto): Promise<User> {
-    AdminMap(LocalDB);
+    // AdminMap(LocalDB);
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: User = await this.users.findOne({
@@ -36,7 +42,7 @@ class AdminAuthService {
   }
 
   public async login(userData: LoginUserDto): Promise<{ cookie: string, findUser: User }> {
-    AdminMap(LocalDB);
+    // AdminMap(LocalDB);
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: User = await this.users.findOne({
@@ -59,7 +65,7 @@ class AdminAuthService {
   }
 
   public async logout(userData: User): Promise<User> {
-    AdminMap(LocalDB);
+    // AdminMap(LocalDB);
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: User = await this.users.findOne({

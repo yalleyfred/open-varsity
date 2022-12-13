@@ -5,15 +5,15 @@ import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { User } from '@interfaces/users.interface';
-import userModel, { UserMap} from '@models/users.model';
-import {LocalDB} from '../Database'
+import Students from '@/models/students.model';
+// import {LocalDB} from '../Database'
 import { isEmpty } from '@utils/util';
 
 class StudentAuthService {
-  public users = userModel;
+  public users = Students;
 
   public async signup(userData: CreateUserDto): Promise<User> {
-    UserMap(LocalDB);
+    // StudentMap(LocalDB);
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: User = await this.users.findOne({
@@ -35,7 +35,7 @@ class StudentAuthService {
   }
 
   public async login(userData: LoginUserDto): Promise<{ cookie: string; findUser: User }> {
-    UserMap(LocalDB)
+    // StudentMap(LocalDB)
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: User= await this.users.findOne({
@@ -57,7 +57,7 @@ class StudentAuthService {
   }
 
   public async logout(userData: User): Promise<User> {
-    UserMap(LocalDB)
+    // StudentMap(LocalDB)
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: User = await this.users.findOne({

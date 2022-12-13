@@ -2,21 +2,21 @@ import { hash } from 'bcrypt';
 import { CreateUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { User } from '@interfaces/users.interface';
-import AdminModel, { AdminMap} from '@models/admins.model';
-import {LocalDB} from '../Database'
+import Admins from '@models/admins.model';
+// import {LocalDB} from '../Database'
 import { isEmpty } from '@utils/util';
 
-class UserService {
-  public users = AdminModel;
+class StudentService {
+  public users = Admins;
 
   public async findAllUser(): Promise<User[]> {
-    AdminMap(LocalDB);
+    // AdminMap(LocalDB);
     const users: User[] = await this.users.findAll();
     return users;
   }
 
   public async findUserById(userId: number): Promise<User> {
-    AdminMap(LocalDB);
+    // AdminMap(LocalDB);
     const findUser: User = await this.users.findOne({where:{id: userId}});
     if (!findUser) throw new HttpException(409, "User doesn't exist");
     console.log(findUser);
@@ -25,7 +25,7 @@ class UserService {
   }
 
   public async createUser(userData: CreateUserDto): Promise<User> {
-    AdminMap(LocalDB);
+    // AdminMap(LocalDB);
     
     
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
@@ -49,7 +49,7 @@ class UserService {
   }
 
   public async updateUser(userId: number, userData: CreateUserDto): Promise<User[]> {
-    AdminMap(LocalDB);
+    // AdminMap(LocalDB);
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: User = await this.users.findOne({where:{id: userId}});
@@ -65,7 +65,7 @@ class UserService {
   }
 
   public async deleteUser(userId: number): Promise<User[]> {
-    AdminMap(LocalDB)
+    // AdminMap(LocalDB)
     const findUser: User = await this.users.findOne({where:{id: userId}});
     if (!findUser) throw new HttpException(409, "User doesn't exist");
 
@@ -75,4 +75,4 @@ class UserService {
   }
 }
 
-export default UserService;
+export default StudentService;

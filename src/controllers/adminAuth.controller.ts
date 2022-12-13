@@ -7,6 +7,18 @@ import AuthService from '@/services/adminAut.service';
 class AdminAuthController {
   public authService = new AuthService();
 
+  public getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const findAllUsersData: User[] = await this.authService.findAllUser();
+      console.log("all admin");
+      
+
+      res.status(200).json({ data: findAllUsersData, message: 'findAll' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: CreateUserDto = req.body;
