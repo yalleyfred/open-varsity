@@ -4,13 +4,13 @@ import { Model, Table, AutoIncrement, PrimaryKey, Column, AllowNull, NotEmpty, I
 import {sequelize} from "../Database";
 
 interface TopicI {
-   id?: number | null;
+   id: number | null;
    heading: string;
-   paragragh: string[];
+   paragraph: string[];
    illustration: string;
    video: string;
    reference: string;
-
+   course_id: number | null;
 };
 
 @Table({
@@ -23,7 +23,7 @@ export default class Topic extends Model implements TopicI{
     @AutoIncrement
     @PrimaryKey
     @Column
-    id?: number
+    id: number
 
     @AllowNull(false)
     @NotEmpty
@@ -33,7 +33,7 @@ export default class Topic extends Model implements TopicI{
     @AllowNull(false)
     @NotEmpty
     @Column(DataType.ARRAY(DataType.STRING))
-    paragragh!: Array<string>
+    paragraph!: Array<string>
 
     @AllowNull(false)
     @NotEmpty
@@ -49,6 +49,10 @@ export default class Topic extends Model implements TopicI{
     @NotEmpty
     @Column
     reference!: string
+
+    @AllowNull(true)
+    @Column
+    course_id: number 
 }
 
 

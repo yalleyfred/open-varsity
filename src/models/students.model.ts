@@ -2,10 +2,11 @@ import { Model, Table, AutoIncrement, PrimaryKey, Column, AllowNull, NotEmpty } 
 import {sequelize} from "../Database";
 
 interface StudentI {
-  id?: number | null;
+  id: number | null;
   first_name: string;
   last_name: string;
   email: string;
+  password: string;
   gender: string;
   dob: string;
   nationality: string;
@@ -28,7 +29,7 @@ export default class Student extends Model implements StudentI{
     @AutoIncrement
     @PrimaryKey
     @Column
-    id?: number
+    id: number
 
     @AllowNull(false)
     @NotEmpty
@@ -44,6 +45,12 @@ export default class Student extends Model implements StudentI{
     @NotEmpty
     @Column
     email!: string
+
+    @AllowNull(false)
+    @NotEmpty
+    @Column
+    password!: string
+
 
     @AllowNull(false)
     @NotEmpty

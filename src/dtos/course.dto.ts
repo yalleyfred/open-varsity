@@ -11,9 +11,10 @@ export class CreateCourseDto  {
   public category: string;
 
   @IsNumber()
-  public price: Number;
+  public price: number;
 
   @IsString()
   public creator: string;
+
 
 }

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
-import { RequestWithUser } from '@interfaces/auth.interface';
-import { User } from '@interfaces/users.interface';
+import { CreateStudentDto, LoginUserDto } from '@dtos/users.dto';
+import { RequestWithStudent, RequestWithUser } from '@interfaces/auth.interface';
+import { StudentInt, User } from '@/interfaces/student.interface';
 import AuthService from '@/services/studentsAuth.service';
 
 class AuthController {
@@ -9,8 +9,8 @@ class AuthController {
 
   public signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userData: CreateUserDto = req.body;
-      const signUpUserData: User = await this.authService.signup(userData);
+      const userData: CreateStudentDto = req.body;
+      const signUpUserData: StudentInt = await this.authService.signup(userData);
       
       res.status(201).json({ data: signUpUserData, message: 'signup' });
     } catch (error) {
@@ -31,10 +31,10 @@ class AuthController {
     }
   };
 
-  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+  public logOut = async (req: RequestWithStudent, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userData: User = req.user;
-      const logOutUserData: User = await this.authService.logout(userData);
+      const userData: StudentInt = req.user;
+      const logOutUserData: StudentInt = await this.authService.logout(userData);
 
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
       res.status(200).json({ data: logOutUserData, message: 'logout' });

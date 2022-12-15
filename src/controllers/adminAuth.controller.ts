@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
 import { RequestWithUser } from '@interfaces/auth.interface';
-import { User } from '@interfaces/users.interface';
+import { User } from '@/interfaces/student.interface';
 import AuthService from '@/services/adminAut.service';
 
 class AdminAuthController {
@@ -10,7 +10,6 @@ class AdminAuthController {
   public getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const findAllUsersData: User[] = await this.authService.findAllUser();
-      console.log("all admin");
       
 
       res.status(200).json({ data: findAllUsersData, message: 'findAll' });

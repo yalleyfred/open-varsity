@@ -10,7 +10,8 @@ class CourseController {
 
   public getCoursesContent = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const findAllUsersData: Course[] = await this.courseService.findAllCoursesContent();
+      const userId = Number(req.params.id);
+      const findAllUsersData: Course[] = await this.courseService.findAllCoursesContent(userId);
       
 
       res.status(200).json({ data: findAllUsersData, message: 'findAll' });

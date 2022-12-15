@@ -10,7 +10,7 @@ import Topics from '@/models/topics.model';
 class CourseService {
   public course = Courses;
 
-  public async findAllCoursesContent(): Promise<Course[]> {
+  public async findAllCoursesContent(userId: number): Promise<Course[]> {
     // CourseMap(LocalDB);
     const course: Course[] = await this.course.findAll({
       include: [{
@@ -18,7 +18,7 @@ class CourseService {
         as: 'topics'
       }],
       where:{
-        id: 1
+        id: userId
       }
     });
     return course;
@@ -52,8 +52,14 @@ class CourseService {
     });
     
     if (findUser) throw new HttpException(409, `This Course ${userData.title} already exists`);
-
-    await this.course.create(userData)
+    let result = {
+      title: userData.title,
+      price: userData.price,
+      banner: userData.banner,
+      category: userData.category,
+      creator: userData.creator,
+    }
+    await this.course.create(result)
     return userData;
   }
 
@@ -61,12 +67,12 @@ class CourseService {
     // CourseMap(LocalDB);
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
-    const findUser: Course = await this.course.findOne({where:{id: userId}});
+    const findUser: Course[] = await this.course.findAll({where:{id: userId}});
     if (!findUser) throw new HttpException(409, "User doesn't exist");
 
-    const hashedPassword = await hash(userData.password, 10);
-    const updateUserData: Course[] = await this.course.map((user: Course) => {
-      if (user.id === findUser.id) user = { id: userId, ...userData, password: hashedPassword };
+    // const hashedPassword = await hash(userData.password, 10);
+    const updateUserData: Course[] = await findUser.map((user: Course) => {
+      // if (user.id === userId) user = { first_name: userData.first_name, last_name: userData.last_name, email: userData.email, password: hashedPassword, gender: userData.gender, dob: userData.dob, nationality: userData.nationality, highest_qualifications: userData.highest_qualifications, phone: userData.phone, city: userData.city, sponsor_name: userData.sponsor_name, sponsor_email: userData.sponsor_email, sponsor_phone: userData.sponsor_phone };
       return user;
     });
 
@@ -79,7 +85,8 @@ class CourseService {
     if (!findUser) throw new HttpException(409, "User doesn't exist");
 
 
-    const deleteUserData: Course[] = (await this.findAllCourses()).filter(user => user.id !== findUser.id)
+    const deleteUserData: Course[] = (await this.findAllCourses())
+    // .filter(user => user.id !== findUser.id)
     return deleteUserData;
   }
 }

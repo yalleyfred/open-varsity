@@ -4,7 +4,7 @@ import { Model, Table, AutoIncrement, PrimaryKey, Column, AllowNull, NotEmpty, D
 import {sequelize} from "../Database";
 
 interface AdminI {
-  id?: number | null;
+  id: number | null;
    name: string;
    email: string;
    password: string;
@@ -24,7 +24,7 @@ export default class Admin extends Model implements AdminI{
     @AutoIncrement
     @PrimaryKey
     @Column
-    id?: number
+    id: number
 
     @AllowNull(false)
     @NotEmpty

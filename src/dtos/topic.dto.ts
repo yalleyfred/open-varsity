@@ -5,7 +5,7 @@ export class CreateTopicDto  {
   public heading: string;
 
   @IsArray()
-  public paragragh: string[];
+  public paragraph: string[];
 
   @IsString()
   public illustration: string;
@@ -15,5 +15,8 @@ export class CreateTopicDto  {
 
   @IsString()
   public reference: string;
+
+  @IsString()
+  public course_id: string;
 
 }

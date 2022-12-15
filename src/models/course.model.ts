@@ -3,7 +3,7 @@ import { Model, Table, AutoIncrement, PrimaryKey, Column, AllowNull, NotEmpty } 
 import {sequelize} from "../Database";
 
 interface CourseI {
-  id?: number | null;
+  id: number | null;
   title: string;
   banner: string;
   category: string;
@@ -22,7 +22,7 @@ export default class User extends Model implements CourseI{
     @AutoIncrement
     @PrimaryKey
     @Column
-    id?: number
+    id: number
 
     @AllowNull(false)
     @NotEmpty

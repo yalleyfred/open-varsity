@@ -4,7 +4,7 @@ import { SECRET_KEY } from '@config';
 import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
-import { User } from '@interfaces/users.interface';
+import { User } from '@/interfaces/admin.interface';
 import Admins from '@models/admins.model';
 // import {LocalDB} from '../Database'
 import { isEmpty } from '@utils/util';
@@ -45,7 +45,12 @@ class AdminAuthService {
     // AdminMap(LocalDB);
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
-    const findUser: User = await this.users.findOne({
+    const findUser: {
+      id: number;
+      email: string;
+      name: string;
+      password: string;
+    } = await this.users.findOne({
       where: {
         email: userData.email,
       },
@@ -58,8 +63,9 @@ class AdminAuthService {
     const isPasswordMatching: boolean = await compare(userData.password, findUser.password);
     if (!isPasswordMatching) throw new HttpException(409, "You're password not matching");
 
-    const tokenData = this.createToken(findUser.id);
+    const tokenData = this.createToken(findUser);
     const cookie = this.createCookie(tokenData);
+
     
     return { cookie, findUser };
   }
