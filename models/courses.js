@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     banner: DataTypes.STRING,
     category: DataTypes.STRING,
     price: DataTypes.INTEGER,
-    creator: DataTypes.STRING
+    creator: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Courses',

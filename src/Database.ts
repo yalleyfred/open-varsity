@@ -49,7 +49,7 @@ export const Database = new Sequelize(PDB_NAME, PDB_USER, PDB_PASSWORD, {
 });
 
 export const DB = () => {
-    if (process.env.NODE_ENV === 'development') {
+    if (isProduction) {
       Database.authenticate()
         .then(async() => {
           console.log("connected to production database successfully!");

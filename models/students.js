@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const { DataType } = require('sequelize-typescript');
 module.exports = (sequelize, DataTypes) => {
   class Students extends Model {
     /**
@@ -16,17 +15,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   Students.init({
     first_name: DataTypes.STRING,
-  last_name: DataTypes.STRING,
-  email: DataTypes.STRING,
-  gender: DataTypes.STRING,
-  dob: DataTypes.STRING,
-  nationality: DataTypes.STRING,
-  highest_qualifications: DataTypes.STRING,
-  phone: DataTypes.STRING,
-  city: DataTypes.STRING,
-  sponsor_name: DataTypes.STRING,
-  sponsor_email: DataTypes.STRING,
-  sponsor_phone: DataTypes.STRING,
+    last_name: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    gender: DataTypes.STRING,
+    dob: DataTypes.STRING,
+    nationality: DataTypes.STRING,
+    highest_qualifications: DataTypes.STRING,
+    phone: DataTypes.STRING,
+    city: DataTypes.STRING,
+    sponsor_name: DataTypes.STRING,
+    sponsor_email: DataTypes.STRING,
+    sponsor_phone: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Students',

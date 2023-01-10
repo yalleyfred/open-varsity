@@ -11,7 +11,9 @@ import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
-
+import path from 'path';
+import bodyParser from 'body-parser';
+import formidable from 'express-formidable'
 class App {
   public app: express.Application;
   public env: string;
@@ -45,11 +47,20 @@ class App {
     this.app.use(morgan(LOG_FORMAT, { stream }));
     this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
     this.app.use(hpp());
+    // this.app.use(bodyParser.urlencoded({ extended: true }));
+    // this.app.use(bodyParser.json({ type: 'application/*+json' }));
+    // this.app.use(formidable({encoding: 'utf-8', multiples: true}));
     this.app.use(helmet());
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
+    this.app.use(express.static(path.join(__dirname, 'client')));
+    this.app.use('css', express.static(path.join(__dirname + 'client/css')));
+    this.app.use('img', express.static(path.join(__dirname + 'client/img')));
+    this.app.use('js', express.static(path.join(`${__dirname}client/js`)));
+    this.app.set('views', path.join(__dirname, 'views'));
+    this.app.set('view engine', 'ejs');
   }
 
   private initializeRoutes(routes: Routes[]) {

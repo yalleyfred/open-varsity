@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Topics.init({
     heading: DataTypes.STRING,
-    paragragh: DataTypes.ARRAY(DataTypes.STRING),
+    paragraph: DataTypes.ARRAY(DataTypes.STRING),
     illustration: DataTypes.STRING,
     video: DataTypes.STRING,
     reference: DataTypes.STRING,

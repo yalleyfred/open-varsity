@@ -2,12 +2,13 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateCourseDto } from '@dtos/course.dto';
 import { Course } from '@interfaces/course.interface';
 import CourseService from '@/services/course.service';
-
+import Courses  from '@models/course.model';
 // import {LocalDB} from '../Database'
+import cloudinary from '@utils/cloudinary'
 
 class CourseController {
   public courseService = new CourseService();
-
+  public course =  Courses
   public getCoursesContent = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userId = Number(req.params.id);
@@ -45,11 +46,42 @@ class CourseController {
   public createCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: CreateCourseDto = req.body;
-      // console.log(userData);
+      // console.log(req.headers);
+      // console.log(req);
+      
       const createUserData: Course = await this.courseService.createCourse(userData);
+      if (!req.file) {
+        console.log("No file received");
+        //  res.send({
+        //   success: false
+        // });
+    
+      } else {
+        console.log('file received');
+        //  res.send({
+        //   success: true
+        // })
+    }
+  
+    const results = await cloudinary.uploader.upload(req.file.path, {
+        folder: "image",
+        resource_type: "image"
+    })
+  // console.log(results);
+  
+      let result = {
+        title: userData.title,
+        price: userData.price,
+        banner: userData.banner,
+        category: userData.category,
+        creator: userData.creator,
+      }
+      await this.course.create(result)
+
+      
 
       res.status(201).json({ data: createUserData, message: 'created' });
-    } catch (error) {
+    } catch (error) {    
       next(error);
     }
   };

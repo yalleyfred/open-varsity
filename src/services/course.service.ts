@@ -7,6 +7,7 @@ import Courses from '@models/course.model';
 import { isEmpty } from '@utils/util';
 import Topics from '@/models/topics.model';
 
+
 class CourseService {
   public course = Courses;
 
@@ -42,6 +43,7 @@ class CourseService {
   public async createCourse(userData: CreateCourseDto): Promise<Course> {
     // CourseMap(LocalDB);
     
+    // console.log(userData);
     
     if (isEmpty(userData)) throw new HttpException(400, "CourseData is empty");
 
@@ -52,14 +54,8 @@ class CourseService {
     });
     
     if (findUser) throw new HttpException(409, `This Course ${userData.title} already exists`);
-    let result = {
-      title: userData.title,
-      price: userData.price,
-      banner: userData.banner,
-      category: userData.category,
-      creator: userData.creator,
-    }
-    await this.course.create(result)
+
+   
     return userData;
   }
 

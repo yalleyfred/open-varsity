@@ -12,7 +12,7 @@ module.exports = {
       heading: {
         type: Sequelize.STRING
       },
-      paragragh: {
+      paragraph: {
         type: Sequelize.ARRAY(Sequelize.STRING)
       },
       illustration: {
