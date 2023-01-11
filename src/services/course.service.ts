@@ -43,7 +43,7 @@ class CourseService {
   public async createCourse(userData: CreateCourseDto): Promise<Course> {
     // CourseMap(LocalDB);
     
-    // console.log(userData);
+    console.log(userData);
     
     if (isEmpty(userData)) throw new HttpException(400, "CourseData is empty");
 

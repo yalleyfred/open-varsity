@@ -1,6 +1,7 @@
 export interface Course {
     title: string;
-    banner: string;
+    image_url: string;
+    image_id: string;
     category: string;
     price: number;
     creator: string;

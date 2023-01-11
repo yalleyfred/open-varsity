@@ -4,7 +4,14 @@ import { Course } from '@interfaces/course.interface';
 import CourseService from '@/services/course.service';
 import Courses  from '@models/course.model';
 // import {LocalDB} from '../Database'
-import cloudinary from '@utils/cloudinary'
+// import Cloudinary from '@utils/cloudinary'
+import cloudinary from 'cloudinary'
+
+cloudinary.v2.config({ 
+  cloud_name: 'dc9l6nzid', 
+  api_key: '655885314288553', 
+  api_secret: 'qd3DvsEHOwu4aw7hTRCiNxZJEs8' 
+});
 
 class CourseController {
   public courseService = new CourseService();
@@ -46,8 +53,6 @@ class CourseController {
   public createCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: CreateCourseDto = req.body;
-      // console.log(req.headers);
-      // console.log(req);
       
       const createUserData: Course = await this.courseService.createCourse(userData);
       if (!req.file) {
@@ -58,21 +63,23 @@ class CourseController {
     
       } else {
         console.log('file received');
+
         //  res.send({
         //   success: true
         // })
     }
-  
-    const results = await cloudinary.uploader.upload(req.file.path, {
+
+    
+    const results = await cloudinary.v2.uploader.upload(req.file.path, {
         folder: "image",
         resource_type: "image"
     })
-  // console.log(results);
   
       let result = {
         title: userData.title,
         price: userData.price,
-        banner: userData.banner,
+        image_url: results.secure_url,
+        image_id: results.public_id,
         category: userData.category,
         creator: userData.creator,
       }
@@ -80,7 +87,7 @@ class CourseController {
 
       
 
-      res.status(201).json({ data: createUserData, message: 'created' });
+      res.status(201).json({ data: result, message: 'created' });
     } catch (error) {    
       next(error);
     }

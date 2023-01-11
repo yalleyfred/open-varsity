@@ -15,14 +15,14 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    queryInterface.removeConstraint("Topics", {
-      fields: ["course_id"],
-      type: "foreign key",
-      name: "topic_course_association",
-      references: {
-        table: "Courses",
-        field: "id"
-      }
-    })
+      queryInterface.removeConstraint("Topics", {
+        fields: ["course_id"],
+        type: "foreign key",
+        name: "topic_course_association",
+        references: {
+          table: "Courses",
+          field: "id"
+        }
+      })
   }
 };

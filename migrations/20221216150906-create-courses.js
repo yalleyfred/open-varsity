@@ -12,7 +12,10 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      banner: {
+      image_url: {
+        type: Sequelize.STRING
+      },
+      image_id: {
         type: Sequelize.STRING
       },
       category: {

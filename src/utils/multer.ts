@@ -3,7 +3,7 @@ import { request } from "http";
 import multer from "multer";
 import path from 'path';
 
-module.exports = multer({
+const storage = multer({
     storage: multer.diskStorage({}),
     fileFilter: (req, file, cb) => {
         let ext = path.extname(file.originalname);
@@ -14,3 +14,5 @@ module.exports = multer({
         cb(null, true)
     }
 });
+
+export default storage;
